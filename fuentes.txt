@@ -1,10 +1,15 @@
 # Fuentes del resumen diario. Formato: SECCION | nombre | url
 # Secciones: AR, MDP, MUNDO, TECH, DEP, VOCES (periodistas/creadores), DATOS (APIs JSON)
 # Para sumar o sacar una fuente, editá este archivo (las líneas con # se ignoran).
+# Preferí feeds de sección (Política, Economía) a los generales: los generales de los medios grandes
+# solo cubren la última hora porque mezclan todas sus ediciones.
 
-AR | Infobae | https://www.infobae.com/arc/outboundfeeds/rss/
-AR | La Nación | https://www.lanacion.com.ar/arc/outboundfeeds/rss/
+AR | Infobae Política | https://www.infobae.com/arc/outboundfeeds/rss/category/politica/
+AR | Infobae Economía | https://www.infobae.com/arc/outboundfeeds/rss/category/economia/
+AR | La Nación Política | https://www.lanacion.com.ar/arc/outboundfeeds/rss/category/politica/
+AR | La Nación Economía | https://www.lanacion.com.ar/arc/outboundfeeds/rss/category/economia/
 AR | Clarín | https://www.clarin.com/rss/lo-ultimo/
+AR | Clarín Política | https://www.clarin.com/rss/politica/
 AR | Página/12 | https://www.pagina12.com.ar/arc/outboundfeeds/rss/
 AR | Perfil | https://www.perfil.com/feed
 AR | Ámbito | https://www.ambito.com/rss/pages/home.xml
@@ -60,3 +65,4 @@ VOCES | Solo Fonseca (YouTube) | https://www.youtube.com/feeds/videos.xml?channe
 DATOS | Dólar | https://dolarapi.com/v1/dolares
 DATOS | Riesgo país | https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo
 DATOS | Clima Mar del Plata | https://api.open-meteo.com/v1/forecast?latitude=-38.0&longitude=-57.55&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,weather_code&timezone=America/Argentina/Buenos_Aires&forecast_days=1
+DATOS | Merval | https://query1.finance.yahoo.com/v8/finance/chart/%5EMERV?range=5d&interval=1d
