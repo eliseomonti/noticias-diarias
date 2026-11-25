@@ -1,0 +1,62 @@
+# Fuentes del resumen diario. Formato: SECCION | nombre | url
+# Secciones: AR, MDP, MUNDO, TECH, DEP, VOCES (periodistas/creadores), DATOS (APIs JSON)
+# Para sumar o sacar una fuente, editá este archivo (las líneas con # se ignoran).
+
+AR | Infobae | https://www.infobae.com/arc/outboundfeeds/rss/
+AR | La Nación | https://www.lanacion.com.ar/arc/outboundfeeds/rss/
+AR | Clarín | https://www.clarin.com/rss/lo-ultimo/
+AR | Página/12 | https://www.pagina12.com.ar/arc/outboundfeeds/rss/
+AR | Perfil | https://www.perfil.com/feed
+AR | Ámbito | https://www.ambito.com/rss/pages/home.xml
+AR | El Cronista | https://www.cronista.com/arc/outboundfeeds/rss/
+AR | TN | https://tn.com.ar/rss.xml
+AR | Google News Argentina | https://news.google.com/rss?hl=es-419&gl=AR&ceid=AR:es-419
+AR | Google News Merval | https://news.google.com/rss/search?q=Merval+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+
+MDP | 0223 | https://www.0223.com.ar/rss
+MDP | Qué Digital | https://quedigital.com.ar/feed/
+MDP | ahoraMDP | https://ahoramardelplata.com.ar/feed
+MDP | La Capital (GN) | https://news.google.com/rss/search?q=site:lacapitalmdp.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+MDP | Mi8 (GN) | https://news.google.com/rss/search?q=site:mi8.com.ar+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
+MDP | Google News Mar del Plata | https://news.google.com/rss/search?q=%22Mar+del+Plata%22+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+
+MUNDO | BBC Mundo | https://feeds.bbci.co.uk/mundo/rss.xml
+MUNDO | Al Jazeera | https://www.aljazeera.com/xml/rss/all.xml
+MUNDO | El País | https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada
+MUNDO | DW español | https://rss.dw.com/xml/rss-sp-all
+MUNDO | NYT World | https://rss.nytimes.com/services/xml/rss/nyt/World.xml
+MUNDO | The Guardian World | https://www.theguardian.com/world/rss
+MUNDO | France 24 | https://www.france24.com/es/rss
+MUNDO | Reuters (GN) | https://news.google.com/rss/search?q=site:reuters.com+when:1d&hl=en-US&gl=US&ceid=US:en
+MUNDO | AP (GN) | https://news.google.com/rss/search?q=site:apnews.com+when:1d&hl=en-US&gl=US&ceid=US:en
+MUNDO | South China Morning Post World | https://www.scmp.com/rss/91/feed
+MUNDO | South China Morning Post China | https://www.scmp.com/rss/4/feed
+MUNDO | Infobae América | https://www.infobae.com/arc/outboundfeeds/rss/category/america/
+MUNDO | El País América | https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/america/portada
+
+TECH | The Verge | https://www.theverge.com/rss/index.xml
+TECH | Ars Technica | https://feeds.arstechnica.com/arstechnica/index
+TECH | TechCrunch | https://techcrunch.com/feed/
+TECH | Xataka | https://www.xataka.com/feedburner.xml
+TECH | Hacker News | https://hnrss.org/frontpage
+
+DEP | Olé | https://www.ole.com.ar/rss/ultimas-noticias/
+DEP | Marca | https://e00-marca.uecdn.es/rss/portada.xml
+DEP | Fórmula 1 | https://www.formula1.com/en/latest/all.xml
+DEP | TyC Sports (GN) | https://news.google.com/rss/search?q=site:tycsports.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+DEP | Google News Deportes AR | https://news.google.com/rss/headlines/section/topic/SPORTS?hl=es-419&gl=AR&ceid=AR:es-419
+DEP | NBA (GN) | https://news.google.com/rss/search?q=NBA+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+DEP | Liga Nacional básquet (GN) | https://news.google.com/rss/search?q=%22Liga+Nacional%22+b%C3%A1squet+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
+DEP | Tenis (GN) | https://news.google.com/rss/search?q=tenis+ATP+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+DEP | Fabrizio Romano (YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCX1em-uaFMS02Rrk_Bowyng
+DEP | Fabrizio Romano (GN) | https://news.google.com/rss/search?q=%22Fabrizio+Romano%22+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
+DEP | Shams Charania (GN) | https://news.google.com/rss/search?q=%22Shams+Charania%22+when:2d&hl=en-US&gl=US&ceid=US:en
+
+VOCES | Carlos Pagni (GN) | https://news.google.com/rss/search?q=%22Carlos+Pagni%22+when:3d&hl=es-419&gl=AR&ceid=AR:es-419
+VOCES | Marcelo Longobardi (YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCi0YGKwQGE-r1GtEAgX1vwQ
+VOCES | Marcelo Longobardi (GN) | https://news.google.com/rss/search?q=%22Marcelo+Longobardi%22+when:3d&hl=es-419&gl=AR&ceid=AR:es-419
+VOCES | Solo Fonseca (YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCTqb7oZzCYpzOhPenq6AOyQ
+
+DATOS | Dólar | https://dolarapi.com/v1/dolares
+DATOS | Riesgo país | https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo
+DATOS | Clima Mar del Plata | https://api.open-meteo.com/v1/forecast?latitude=-38.0&longitude=-57.55&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,weather_code&timezone=America/Argentina/Buenos_Aires&forecast_days=1
