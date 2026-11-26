@@ -9,6 +9,7 @@ from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 
 HORAS = int(sys.argv[2]) if len(sys.argv) > 2 else 30
+VENTANA = {'VOCES': 72}  # horas por seccion; las voces no publican todos los dias
 LINKS = sys.argv[3] if len(sys.argv) > 3 else '/tmp/links.txt'
 CAP = 20          # maximo de notas por feed ordenado por fecha
 RECIENTES = 8     # de esas, cuantas son las mas nuevas; el resto se reparte en toda la ventana
@@ -17,10 +18,14 @@ UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, 
       'Accept-Language': 'es-AR,es;q=0.9,en;q=0.8'}
 ART = timezone(timedelta(hours=-3))
 AHORA = datetime.now(timezone.utc)
-LIMITE = AHORA - timedelta(hours=HORAS)
 FUTURO = AHORA + timedelta(hours=2)
 ORDEN = ['DATOS', 'AR', 'MDP', 'MUNDO', 'TECH', 'DEP', 'VOCES']
 WTTR = 'https://wttr.in/Mar+del+Plata?format=j1&lang=es'
+CIELO = {0: 'despejado', 1: 'mayormente despejado', 2: 'parcialmente nublado', 3: 'nublado', 45: 'niebla', 48: 'niebla',
+         51: 'llovizna', 53: 'llovizna', 55: 'llovizna', 61: 'lluvia debil', 63: 'lluvia', 65: 'lluvia fuerte',
+         80: 'chaparrones', 81: 'chaparrones', 82: 'chaparrones fuertes', 95: 'tormenta', 96: 'tormenta con granizo', 99: 'tormenta con granizo',
+         56: 'llovizna helada', 57: 'llovizna helada', 66: 'lluvia helada', 67: 'lluvia helada', 71: 'nevadas', 73: 'nevadas',
+         75: 'nevadas fuertes', 77: 'granizo fino', 85: 'chaparrones de nieve', 86: 'chaparrones de nieve'}
 
 
 def fecha(s):
@@ -29,12 +34,14 @@ def fecha(s):
     s = s.strip()
     try:
         d = parsedate_to_datetime(s)
+        return d if d.tzinfo else d.replace(tzinfo=timezone.utc)  # -0000 en RFC 822 = UTC
     except Exception:
-        try:
-            d = datetime.fromisoformat(s.replace('Z', '+00:00'))
-        except Exception:
-            return None
-    return d if d.tzinfo else d.replace(tzinfo=ART)  # sin zona horaria: se asume hora argentina
+        pass
+    try:
+        d = datetime.fromisoformat(s.replace('Z', '+00:00'))
+    except Exception:
+        return None
+    return d if d.tzinfo else d.replace(tzinfo=ART)  # ISO sin zona horaria: se asume hora argentina
 
 
 def limpio(s, n=200):
@@ -72,15 +79,18 @@ def dato_open_meteo(j):
     d = j['daily']
     v = [d[k][0] for k in ('time', 'temperature_2m_max', 'temperature_2m_min', 'precipitation_probability_max',
                            'wind_speed_10m_max', 'wind_gusts_10m_max')]
-    return ['pronostico %s: max %s C, min %s C, prob. lluvia max %s%%, viento max %s km/h, rafagas max %s km/h (open-meteo)' % tuple(v)]
+    cielo = CIELO.get((d.get('weather_code') or [None])[0], 'sin dato')
+    return ['pronostico %s: max %s C, min %s C, prob. lluvia max %s%%, viento max %s km/h, rafagas max %s km/h, cielo: %s (open-meteo)' % (*v, cielo)]
 
 
 def dato_wttr():
     w = json.loads(bajar(WTTR))['weather'][0]
     hs = w.get('hourly', [])
     mx = lambda k: max((int(h[k]) for h in hs), default='sin dato')
-    v = (w['date'], w['maxtempC'], w['mintempC'], mx('chanceofrain'), mx('windspeedKmph'), mx('WindGustKmph'))
-    return ['pronostico %s: max %s C, min %s C, prob. lluvia max %s%%, viento max %s km/h, rafagas max %s km/h (wttr.in, respaldo)' % v]
+    medio = hs[len(hs) // 2] if hs else {}
+    cielo = ((medio.get('lang_es') or medio.get('weatherDesc') or [{}])[0].get('value') or 'sin dato').strip().lower()
+    v = (w['date'], w['maxtempC'], w['mintempC'], mx('chanceofrain'), mx('windspeedKmph'), mx('WindGustKmph'), cielo)
+    return ['pronostico %s: max %s C, min %s C, prob. lluvia max %s%%, viento max %s km/h, rafagas max %s km/h, cielo: %s (wttr.in, respaldo)' % v]
 
 
 def dato_yahoo(j):
@@ -89,10 +99,16 @@ def dato_yahoo(j):
     if not pares:
         raise ValueError('sin cierres')
     t, c = pares[-1]
-    linea = f'ultimo cierre {datetime.fromtimestamp(t, ART):%d/%m}: {c:,.0f} puntos'
+    dia = datetime.fromtimestamp(t, ART)
+    ahora = AHORA.astimezone(ART)
+    abierto = dia.date() == ahora.date() and ahora.hour < 18  # rueda en curso: el ultimo valor es parcial
+    rotulo = 'valor parcial de la rueda del' if abierto else 'ultimo cierre'
+    puntos = f'{c:,.0f}'.replace(',', '.')
+    linea = f'{rotulo} {dia:%d/%m}: {puntos} puntos'
     if len(pares) > 1:
         t0, c0 = pares[-2]
-        linea += f' ({(c / c0 - 1) * 100:+.2f}% vs cierre del {datetime.fromtimestamp(t0, ART):%d/%m})'
+        var = f'{(c / c0 - 1) * 100:+.2f}'.replace('.', ',')
+        linea += f' ({var}% vs cierre del {datetime.fromtimestamp(t0, ART):%d/%m})'
     return [linea + ' (Yahoo Finance)']
 
 
@@ -144,17 +160,19 @@ def procesar(sec, nombre, url):
                     return sec, nombre, url, 'RESPALDO', procesar_dato(url, bajar(url.replace('query1', 'query2')))
                 raise
         root = ET.fromstring(bajar(url).lstrip().removeprefix(codecs.BOM_UTF8).lstrip())
+        limite = AHORA - timedelta(hours=VENTANA.get(sec, HORAS))
         items = []
         for it in root.iter():
             if it.tag.split('}')[-1] not in ('item', 'entry'):
                 continue
-            c, alt = {}, None
+            c, alt, otro = {}, None, None
             for ch in it:
                 t = ch.tag.split('}')[-1]
                 if t == 'link' and ch.get('href'):
                     if ch.get('rel') in (None, 'alternate'):
                         alt = alt or ch.get('href')
-                    c.setdefault('link', ch.get('href'))
+                    else:
+                        otro = otro or ch.get('href')  # self, enclosure, etc.: solo como ultimo recurso
                 elif t in ('title', 'link', 'description', 'summary', 'pubDate', 'published', 'updated', 'date'):
                     c.setdefault(t, ch.text or '')
                 elif t == 'group':  # YouTube: media:group/media:description
@@ -162,11 +180,11 @@ def procesar(sec, nombre, url):
                         if g.tag.split('}')[-1] == 'description':
                             c.setdefault('description', g.text or '')
             d = fecha(c.get('pubDate') or c.get('published') or c.get('date') or c.get('updated'))
-            if d and (d < LIMITE or d > FUTURO):
+            if d and (d < limite or d > FUTURO):
                 continue
             raw = c.get('description') or c.get('summary') or ''
             medios = medios_cluster(raw) if 'news.google.com' in url else []
-            items.append({'d': d, 't': limpio(c.get('title'), 220), 'l': (alt or c.get('link') or '').strip(),
+            items.append({'d': d, 't': limpio(c.get('title'), 220), 'l': (alt or c.get('link') or otro or '').strip(),
                           'desc': '' if medios else limpio(raw), 'medios': medios})
         if not items:
             return sec, nombre, url, 'VACIA', []
@@ -189,7 +207,8 @@ def main():
     n = 0
     links, fallas, vacias, respaldos = [], [], [], []
     q = chr(39)
-    print(f'# Digest generado {AHORA.astimezone(ART):%Y-%m-%d %H:%M} (ART), ultimas {HORAS} h')
+    extra_v = ', '.join(f'{k}: {v} h' for k, v in VENTANA.items())
+    print(f'# Digest generado {AHORA.astimezone(ART):%Y-%m-%d %H:%M} (ART), ultimas {HORAS} h (excepto {extra_v})')
     print('# Cada noticia: [fecha hora ART] titulo #N. La URL de la noticia #N se obtiene con: grep ' + q + '^N ' + q + ' ' + LINKS)
     print('# En los feeds de Google News, cubren(N) lista los medios distintos que publicaron esa misma noticia.')
     for sec in ORDEN + sorted({r[0] for r in res} - set(ORDEN)):
