@@ -45,19 +45,27 @@ MUNDO | South China Morning Post China | https://www.scmp.com/rss/4/feed
 MUNDO | Infobae América | https://www.infobae.com/arc/outboundfeeds/rss/category/america/
 MUNDO | El País América | https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/america/portada
 
-TECH | The Verge | https://www.theverge.com/rss/index.xml
+TECH | The Verge IA | https://www.theverge.com/rss/ai-artificial-intelligence/index.xml
 TECH | Ars Technica | https://feeds.arstechnica.com/arstechnica/index
 TECH | TechCrunch | https://techcrunch.com/feed/
 TECH | Xataka | https://www.xataka.com/feedburner.xml
 TECH | Hacker News (150+ puntos) | https://hnrss.org/frontpage?points=150
+TECH | MIT Technology Review | https://www.technologyreview.com/feed/
+TECH | The Decoder (IA) | https://the-decoder.com/feed/
+TECH | Simon Willison (IA, blog) | https://simonwillison.net/atom/everything/
+TECH | Hugging Face (blog) | https://huggingface.co/blog/feed.xml
+TECH | IA en inglés (GN) | https://news.google.com/rss/search?q=%22artificial+intelligence%22+OR+OpenAI+OR+Anthropic+OR+Gemini+when:1d&hl=en-US&gl=US&ceid=US:en
+TECH | IA en español (GN) | https://news.google.com/rss/search?q=%22inteligencia+artificial%22+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 
+DEP | Boca Juniors (GN) | https://news.google.com/rss/search?q=%22Boca+Juniors%22+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+DEP | Selección Argentina (GN) | https://news.google.com/rss/search?q=%22Selecci%C3%B3n+Argentina%22+f%C3%BAtbol+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
+DEP | AFA y Liga Profesional (GN) | https://news.google.com/rss/search?q=AFA+(Tapia+OR+%22Liga+Profesional%22+OR+%22sociedades+an%C3%B3nimas%22)+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
 DEP | Olé | https://www.ole.com.ar/rss/ultimas-noticias/
-DEP | Marca | https://e00-marca.uecdn.es/rss/portada.xml
+DEP | The Guardian Football | https://www.theguardian.com/football/rss
 DEP | Fórmula 1 | https://www.formula1.com/en/latest/all.xml
 DEP | TyC Sports (GN) | https://news.google.com/rss/search?q=site:tycsports.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 DEP | Google News Deportes AR | https://news.google.com/rss/headlines/section/topic/SPORTS?hl=es-419&gl=AR&ceid=AR:es-419
 DEP | NBA (GN) | https://news.google.com/rss/search?q=NBA+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
-DEP | Liga Nacional básquet (GN) | https://news.google.com/rss/search?q=%22Liga+Nacional%22+b%C3%A1squet+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
 DEP | Tenis (GN) | https://news.google.com/rss/search?q=tenis+(ATP+OR+WTA)+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 DEP | Fabrizio Romano (GN) | https://news.google.com/rss/search?q=%22Fabrizio+Romano%22+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
 DEP | Shams Charania (GN) | https://news.google.com/rss/search?q=%22Shams+Charania%22+when:2d&hl=en-US&gl=US&ceid=US:en
