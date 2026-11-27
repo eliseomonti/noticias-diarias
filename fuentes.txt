@@ -1,7 +1,9 @@
-# Fuentes del resumen diario. Formato: SECCION | nombre | url
-# Secciones: AR, MDP, MUNDO, TECH, DEP, VOCES (periodistas/creadores), DATOS (APIs JSON)
-# Para sumar o sacar una fuente, editá este archivo (las líneas con # se ignoran).
+# Fuentes del resumen diario. Formato: SECCION | nombre | url | nota
+# Secciones: AR, MDP, MUNDO, TECH, DEP, VOCES (opinión: periodistas y creadores), DATOS (APIs JSON)
+# Para sumar o sacar una fuente, editá este archivo (las líneas con # se ignoran). Es lo único que hay que tocar.
+# La nota es opcional: le dice al agente cómo usar esa fuente (por ejemplo "agencia de noticias" o "no usar WebFetch").
 # Para quedarte solo con las notas de un feed cuyo título contenga una palabra, agregá #solo=palabra al final de la URL.
+# Los datos de DATOS se procesan según la URL (dolarapi, open-meteo, Yahoo Finance, api.bcra.gob.ar); otra API se muestra cruda.
 # Preferí feeds de sección (Política, Economía): los generales de los medios grandes cubren pocas horas
 # porque mezclan todas sus ediciones. Los generales que quedan sirven para detectar temas transversales.
 # Las búsquedas de Google News (GN) detectan noticias; las agencias y fuentes primarias confirman hechos.
@@ -10,8 +12,8 @@ AR | Infobae Política | https://www.infobae.com/arc/outboundfeeds/rss/category/
 AR | Infobae Economía | https://www.infobae.com/arc/outboundfeeds/rss/category/economia/
 AR | La Nación Política | https://www.lanacion.com.ar/arc/outboundfeeds/rss/category/politica/
 AR | La Nación Economía | https://www.lanacion.com.ar/arc/outboundfeeds/rss/category/economia/
-AR | Clarín Política | https://www.clarin.com/rss/politica/
-AR | Clarín Economía | https://www.clarin.com/rss/economia/
+AR | Clarín Política | https://www.clarin.com/rss/politica/ | no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
+AR | Clarín Economía | https://www.clarin.com/rss/economia/ | no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
 AR | Página/12 El País | https://www.pagina12.com.ar/arc/outboundfeeds/rss/secciones/el-pais/notas
 AR | Página/12 Economía | https://www.pagina12.com.ar/arc/outboundfeeds/rss/secciones/economia/notas
 AR | Perfil Política | https://www.perfil.com/feed/politica
@@ -23,11 +25,11 @@ AR | El Cronista Finanzas y Mercados | https://www.cronista.com/arc/outboundfeed
 AR | Bloomberg Línea Argentina | https://www.bloomberglinea.com/arc/outboundfeeds/rss/latinoamerica/argentina.xml
 AR | TN | https://tn.com.ar/rss.xml
 AR | Letra P (política, GN) | https://news.google.com/rss/search?q=site:letrap.com.ar+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
-AR | Provincia de Buenos Aires (GN) | https://news.google.com/rss/search?q=(Kicillof+OR+%22Legislatura+bonaerense%22+OR+%22gobierno+bonaerense%22+OR+%22Senado+bonaerense%22)+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
-AR | Chequeado (verificación de datos) | https://chequeado.com/feed/?post_type=nota
-AR | Noticias Argentinas (agencia, GN) | https://news.google.com/rss/search?q=site:noticiasargentinas.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
-AR | Google News Argentina | https://news.google.com/rss?hl=es-419&gl=AR&ceid=AR:es-419
-AR | Google News Merval | https://news.google.com/rss/search?q=Merval+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+AR | Provincia de Buenos Aires (GN) | https://news.google.com/rss/search?q=(Kicillof+OR+%22Legislatura+bonaerense%22+OR+%22gobierno+bonaerense%22+OR+%22Senado+bonaerense%22)+when:1d&hl=es-419&gl=AR&ceid=AR:es-419 | mezcla medios oficiales, partidarios y locales: sirve para detectar temas bonaerenses que afectan a Mar del Plata; confirmá en medios de distinta línea
+AR | Chequeado (verificación de datos) | https://chequeado.com/feed/?post_type=nota | verificador de datos: si chequeó una afirmación que incluís, sumá su conclusión, atribuida
+AR | Noticias Argentinas (agencia, GN) | https://news.google.com/rss/search?q=site:noticiasargentinas.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419 | agencia de noticias: base para los hechos duros
+AR | Google News Argentina | https://news.google.com/rss?hl=es-419&gl=AR&ceid=AR:es-419 | portada de Google News ordenada por importancia: cubren(N) = medios distintos que publicaron la misma noticia, la mejor señal de amplitud
+AR | Google News Merval | https://news.google.com/rss/search?q=Merval+when:1d&hl=es-419&gl=AR&ceid=AR:es-419 | para el Merval si el dato de DATOS falla: último cierre, fecha y variación, atribuido al medio
 
 MDP | 0223 | https://www.0223.com.ar/rss
 MDP | Qué Digital | https://quedigital.com.ar/feed/
@@ -37,62 +39,62 @@ MDP | InfoBrisas | https://www.infobrisas.com/rss/noticias
 MDP | LU9 Mar del Plata | https://lu9mardelplataapiv3.eleco.com.ar/feed-notes
 MDP | La Capital (GN) | https://news.google.com/rss/search?q=site:lacapitalmdp.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 MDP | Mi8 (GN) | https://news.google.com/rss/search?q=site:mi8.com.ar+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
-MDP | Municipio de General Pueyrredon (GN) | https://news.google.com/rss/search?q=site:mardelplata.gob.ar+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
+MDP | Municipio de General Pueyrredon (GN) | https://news.google.com/rss/search?q=site:mardelplata.gob.ar+when:2d&hl=es-419&gl=AR&ceid=AR:es-419 | fuente oficial del municipio: atribuí sus afirmaciones al municipio
 MDP | Google News Mar del Plata | https://news.google.com/rss/search?q=%22Mar+del+Plata%22+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 
-MUNDO | BBC Mundo | https://feeds.bbci.co.uk/mundo/rss.xml
+MUNDO | BBC Mundo | https://feeds.bbci.co.uk/mundo/rss.xml | no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
 MUNDO | Al Jazeera | https://www.aljazeera.com/xml/rss/all.xml
-MUNDO | El País Internacional | https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/internacional/portada
+MUNDO | El País Internacional | https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/internacional/portada | no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
 MUNDO | DW español | https://rss.dw.com/xml/rss-sp-all
 MUNDO | NYT World | https://rss.nytimes.com/services/xml/rss/nyt/World.xml
 MUNDO | The Guardian World | https://www.theguardian.com/world/rss
 MUNDO | France 24 | https://www.france24.com/es/rss
-MUNDO | Reuters (GN) | https://news.google.com/rss/search?q=site:reuters.com+when:1d&hl=en-US&gl=US&ceid=US:en
-MUNDO | AP (GN) | https://news.google.com/rss/search?q=site:apnews.com+when:1d&hl=en-US&gl=US&ceid=US:en
-MUNDO | EFE (agencia, GN) | https://news.google.com/rss/search?q=site:efe.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+MUNDO | Reuters (GN) | https://news.google.com/rss/search?q=site:reuters.com+when:1d&hl=en-US&gl=US&ceid=US:en | agencia de noticias: base para los hechos duros; no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
+MUNDO | AP (GN) | https://news.google.com/rss/search?q=site:apnews.com+when:1d&hl=en-US&gl=US&ceid=US:en | agencia de noticias: base para los hechos duros
+MUNDO | EFE (agencia, GN) | https://news.google.com/rss/search?q=site:efe.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419 | agencia de noticias: base para los hechos duros
 MUNDO | Wall Street Journal World | https://feeds.content.dowjones.io/public/rss/RSSWorldNews
 MUNDO | Le Monde (en inglés) | https://www.lemonde.fr/en/rss/une.xml
 MUNDO | Times of Israel | https://www.timesofisrael.com/feed/
 MUNDO | South China Morning Post World | https://www.scmp.com/rss/91/feed
 MUNDO | South China Morning Post China | https://www.scmp.com/rss/4/feed
 MUNDO | Infobae América | https://www.infobae.com/arc/outboundfeeds/rss/category/america/
-MUNDO | El País América | https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/america/portada
+MUNDO | El País América | https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/america/portada | no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
 
-TECH | The Verge IA | https://www.theverge.com/rss/ai-artificial-intelligence/index.xml
-TECH | Ars Technica | https://feeds.arstechnica.com/arstechnica/index
+TECH | The Verge IA | https://www.theverge.com/rss/ai-artificial-intelligence/index.xml | no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
+TECH | Ars Technica | https://feeds.arstechnica.com/arstechnica/index | no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
 TECH | TechCrunch | https://techcrunch.com/feed/
 TECH | Xataka | https://www.xataka.com/feedburner.xml
-TECH | Hacker News (150+ puntos) | https://hnrss.org/frontpage?points=150
+TECH | Hacker News (150+ puntos) | https://hnrss.org/frontpage?points=150 | los puntos miden el interés de esa comunidad, no la relevancia
 TECH | MIT Technology Review | https://www.technologyreview.com/feed/
 TECH | The Decoder (IA) | https://the-decoder.com/feed/
-TECH | Simon Willison (IA, blog) | https://simonwillison.net/atom/everything/
-TECH | Hugging Face (blog) | https://huggingface.co/blog/feed.xml
+TECH | Simon Willison (IA, blog) | https://simonwillison.net/atom/everything/ | blog de especialista: es una mirada, no una noticia confirmada
+TECH | Hugging Face (blog) | https://huggingface.co/blog/feed.xml | blog de la empresa: sus anuncios son afirmaciones de Hugging Face
 TECH | IA en inglés (GN) | https://news.google.com/rss/search?q=%22artificial+intelligence%22+OR+OpenAI+OR+Anthropic+OR+Gemini+when:1d&hl=en-US&gl=US&ceid=US:en
 TECH | IA en español (GN) | https://news.google.com/rss/search?q=%22inteligencia+artificial%22+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 
 DEP | Boca Juniors (GN) | https://news.google.com/rss/search?q=%22Boca+Juniors%22+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 DEP | Selección Argentina (GN) | https://news.google.com/rss/search?q=%22Selecci%C3%B3n+Argentina%22+f%C3%BAtbol+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
 DEP | AFA y Liga Profesional (GN) | https://news.google.com/rss/search?q=AFA+(Tapia+OR+%22Liga+Profesional%22+OR+%22sociedades+an%C3%B3nimas%22)+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
-DEP | Olé | https://www.ole.com.ar/rss/ultimas-noticias/
+DEP | Olé | https://www.ole.com.ar/rss/ultimas-noticias/ | no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
 DEP | The Guardian Football | https://www.theguardian.com/football/rss
 DEP | Fórmula 1 | https://www.formula1.com/en/latest/all.xml
-DEP | TyC Sports (GN) | https://news.google.com/rss/search?q=site:tycsports.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
-DEP | Google News Deportes AR | https://news.google.com/rss/headlines/section/topic/SPORTS?hl=es-419&gl=AR&ceid=AR:es-419
+DEP | TyC Sports (GN) | https://news.google.com/rss/search?q=site:tycsports.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419 | no usar WebFetch (bloquea lecturas automáticas): usá título y bajada y corroborá en otro medio
+DEP | Google News Deportes AR | https://news.google.com/rss/headlines/section/topic/SPORTS?hl=es-419&gl=AR&ceid=AR:es-419 | portada de Google News ordenada por importancia: cubren(N) = medios distintos que publicaron la misma noticia, la mejor señal de amplitud
 DEP | NBA (GN) | https://news.google.com/rss/search?q=NBA+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 DEP | Tenis (GN) | https://news.google.com/rss/search?q=tenis+(ATP+OR+WTA)+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
-DEP | Fabrizio Romano (GN) | https://news.google.com/rss/search?q=%22Fabrizio+Romano%22+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
-DEP | Shams Charania (GN) | https://news.google.com/rss/search?q=%22Shams+Charania%22+when:2d&hl=en-US&gl=US&ceid=US:en
+DEP | Fabrizio Romano (GN) | https://news.google.com/rss/search?q=%22Fabrizio+Romano%22+when:2d&hl=es-419&gl=AR&ceid=AR:es-419 | periodista de primicias: sus datos son reportes atribuidos, no hechos confirmados
+DEP | Shams Charania (GN) | https://news.google.com/rss/search?q=%22Shams+Charania%22+when:2d&hl=en-US&gl=US&ceid=US:en | periodista de primicias: sus datos son reportes atribuidos, no hechos confirmados
 
-VOCES | Carlos Pagni (GN) | https://news.google.com/rss/search?q=%22Carlos+Pagni%22+when:3d&hl=es-419&gl=AR&ceid=AR:es-419
+VOCES | Carlos Pagni (GN) | https://news.google.com/rss/search?q=%22Carlos+Pagni%22+when:3d&hl=es-419&gl=AR&ceid=AR:es-419 | búsqueda en Google News: usá solo las notas sobre lo que dijo o analizó; ignorá las de su vida personal, de rating o las que apenas lo mencionan
 VOCES | Marcelo Longobardi (YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCi0YGKwQGE-r1GtEAgX1vwQ
 VOCES | Solo Fonseca (YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCTqb7oZzCYpzOhPenq6AOyQ
 VOCES | Pedro Rosemblat (Gelatina, YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCWSfXECGo1qK_H7SXRaUSMg#solo=rosemblat
-VOCES | Pedro Rosemblat (GN) | https://news.google.com/rss/search?q=%22Pedro+Rosemblat%22+-Lali+-boda+-casamiento+when:3d&hl=es-419&gl=AR&ceid=AR:es-419
+VOCES | Pedro Rosemblat (GN) | https://news.google.com/rss/search?q=%22Pedro+Rosemblat%22+-Lali+-boda+-casamiento+when:3d&hl=es-419&gl=AR&ceid=AR:es-419 | búsqueda en Google News: usá solo las notas sobre lo que dijo o analizó; ignorá las de su vida personal, de rating o las que apenas lo mencionan
 VOCES | Tomás Rebord (YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCEKbBDfanOeB3LqZio_nLdQ
-VOCES | Tomás Rebord (GN) | https://news.google.com/rss/search?q=%22Tom%C3%A1s+Rebord%22+-rating+-Lali+when:3d&hl=es-419&gl=AR&ceid=AR:es-419
+VOCES | Tomás Rebord (GN) | https://news.google.com/rss/search?q=%22Tom%C3%A1s+Rebord%22+-rating+-Lali+when:3d&hl=es-419&gl=AR&ceid=AR:es-419 | búsqueda en Google News: usá solo las notas sobre lo que dijo o analizó; ignorá las de su vida personal, de rating o las que apenas lo mencionan
 
-DATOS | Dólar | https://dolarapi.com/v1/dolares
-DATOS | Riesgo país | https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo
-DATOS | BCRA (oficial) | https://api.bcra.gob.ar/estadisticas/v4.0/monetarias
-DATOS | Clima Mar del Plata | https://api.open-meteo.com/v1/forecast?latitude=-38.0&longitude=-57.55&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,weather_code&timezone=America/Argentina/Buenos_Aires&forecast_days=1
-DATOS | Merval | https://query1.finance.yahoo.com/v8/finance/chart/%5EMERV?range=5d&interval=1d
+DATOS | Dólar | https://dolarapi.com/v1/dolares | informá el precio de VENTA de Oficial, Blue, MEP (= Bolsa) y CCL (= Contado con liquidación), con la hora del dato
+DATOS | Riesgo país | https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo | valor y fecha
+DATOS | BCRA (oficial) | https://api.bcra.gob.ar/estadisticas/v4.0/monetarias | datos oficiales: reservas internacionales, inflación mensual e interanual del INDEC con su mes e inflación esperada (REM); el dólar mayorista y la BADLAR, solo como contexto
+DATOS | Clima Mar del Plata | https://api.open-meteo.com/v1/forecast?latitude=-38.0&longitude=-57.55&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,weather_code&timezone=America/Argentina/Buenos_Aires&forecast_days=1 | pronóstico de hoy con el estado del cielo; si hay una alerta, atribuila al SMN o al medio que la informe
+DATOS | Merval | https://query1.finance.yahoo.com/v8/finance/chart/%5EMERV?range=5d&interval=1d | último cierre, su fecha y variación; si falla, buscalo en Google News Merval y atribuilo; si no aparece, "sin dato"

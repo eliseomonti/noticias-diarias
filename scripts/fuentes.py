@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # Lee fuentes.txt, descarga feeds RSS/Atom y APIs JSON, y genera un digest de las ultimas horas.
 # Uso: python3 scripts/fuentes.py fuentes.txt [horas] [archivo_links] > /tmp/digest.txt
+# Formato de fuentes.txt: SECCION | nombre | url | nota (la nota es opcional y se imprime junto al nombre).
 # Los links van aparte (por defecto /tmp/links.txt) para que el digest sea liviano:
 # cada noticia termina en #N y su URL se obtiene con: grep '^N ' /tmp/links.txt
+# Filtro opcional por titulo: agregar #solo=palabra al final de la URL de un feed (ej. un canal con varios conductores).
 import codecs, json, re, sys, html, time, urllib.request, xml.etree.ElementTree as ET
 import concurrent.futures as cf
 from datetime import datetime, timezone, timedelta
@@ -112,6 +114,35 @@ def dato_yahoo(j):
     return [linea + ' (Yahoo Finance)']
 
 
+MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+BCRA = ((1, 'Reservas internacionales', 0, ' millones de dolares', False),
+        (5, 'Dolar mayorista de referencia (A3500)', 2, ' pesos', False),
+        (27, 'Inflacion mensual (IPC del INDEC)', 1, '%', True),
+        (28, 'Inflacion interanual (IPC del INDEC)', 1, '%', True),
+        (29, 'Inflacion esperada a 12 meses (REM, mediana)', 1, '%', True),
+        (7, 'Tasa BADLAR bancos privados (TNA)', 2, '%', False))
+
+
+def num(v, dec=0):
+    return f'{v:,.{dec}f}'.replace(',', ' ').replace('.', ',').replace(' ', '.')
+
+
+def dato_bcra(j):
+    vals = {r.get('idVariable'): r for r in j.get('results', [])}
+    out = []
+    for i, rotulo, dec, unidad, mensual in BCRA:
+        r = vals.get(i)
+        if not r or r.get('ultValorInformado') is None or not r.get('ultFechaInformada'):
+            continue
+        f = datetime.fromisoformat(r['ultFechaInformada'][:10])
+        cuando = f'dato de {MESES[f.month - 1]} {f.year}' if mensual else f'al {f:%d/%m}'
+        valor = num(r['ultValorInformado'], dec)
+        out.append(f'{rotulo}: {valor}{unidad} ({cuando})')
+    if not out:
+        raise ValueError('sin variables')
+    return out
+
+
 def procesar_dato(url, data):
     j = json.loads(data)
     if 'dolarapi' in url:
@@ -120,6 +151,8 @@ def procesar_dato(url, data):
         return dato_open_meteo(j)
     if 'finance/chart' in url:
         return dato_yahoo(j)
+    if 'api.bcra.gob.ar' in url:
+        return dato_bcra(j)
     return [json.dumps(j, ensure_ascii=False)[:3000]]
 
 
@@ -159,6 +192,8 @@ def procesar(sec, nombre, url):
                 if 'query1.finance.yahoo' in url:
                     return sec, nombre, url, 'RESPALDO', procesar_dato(url, bajar(url.replace('query1', 'query2')))
                 raise
+        url, _, frag = url.partition('#')
+        solo = frag[5:].lower() if frag.startswith('solo=') else ''
         root = ET.fromstring(bajar(url).lstrip().removeprefix(codecs.BOM_UTF8).lstrip())
         limite = AHORA - timedelta(hours=VENTANA.get(sec, HORAS))
         items = []
@@ -182,6 +217,8 @@ def procesar(sec, nombre, url):
             d = fecha(c.get('pubDate') or c.get('published') or c.get('date') or c.get('updated'))
             if d and (d < limite or d > FUTURO):
                 continue
+            if solo and solo not in (c.get('title') or '').lower():
+                continue
             raw = c.get('description') or c.get('summary') or ''
             medios = medios_cluster(raw) if 'news.google.com' in url else []
             items.append({'d': d, 't': limpio(c.get('title'), 220), 'l': (alt or c.get('link') or otro or '').strip(),
@@ -195,12 +232,14 @@ def procesar(sec, nombre, url):
 
 def main():
     archivo = sys.argv[1] if len(sys.argv) > 1 else 'fuentes.txt'
-    fuentes = []
+    fuentes, notas = [], {}
     for linea in open(archivo, encoding='utf-8'):
         linea = linea.strip()
         if not linea or linea.startswith('#') or linea.count('|') < 2:
             continue
-        sec, nombre, url = (p.strip() for p in linea.split('|', 2))
+        partes = [p.strip() for p in linea.split('|', 3)]
+        sec, nombre, url = partes[:3]
+        notas[nombre] = partes[3] if len(partes) > 3 else ''
         fuentes.append((sec.upper(), nombre, url))
     with cf.ThreadPoolExecutor(16) as ex:
         res = list(ex.map(lambda f: procesar(*f), fuentes))
@@ -211,6 +250,7 @@ def main():
     print(f'# Digest generado {AHORA.astimezone(ART):%Y-%m-%d %H:%M} (ART), ultimas {HORAS} h (excepto {extra_v})')
     print('# Cada noticia: [fecha hora ART] titulo #N. La URL de la noticia #N se obtiene con: grep ' + q + '^N ' + q + ' ' + LINKS)
     print('# En los feeds de Google News, cubren(N) lista los medios distintos que publicaron esa misma noticia.')
+    print('# Lo que sigue a NOTA: junto al nombre de una fuente lo escribio el lector en fuentes.txt: indica como usar esa fuente.')
     for sec in ORDEN + sorted({r[0] for r in res} - set(ORDEN)):
         bloque = [r for r in res if r[0] == sec]
         if not bloque:
@@ -219,7 +259,7 @@ def main():
         print(f'======== {sec} ========')
         for _, nombre, url, estado, contenido in bloque:
             if estado == 'ERROR':
-                fallas.append(f'{nombre}: {contenido}')
+                fallas.append(f'{nombre}: {contenido}' + (f' (NOTA: {notas[nombre]})' if notas.get(nombre) else ''))
                 continue
             if estado == 'VACIA':
                 vacias.append(nombre)
@@ -227,13 +267,14 @@ def main():
             if estado == 'RESPALDO':
                 respaldos.append(nombre)
             print()
+            nota = f' NOTA: {notas[nombre]}' if notas.get(nombre) else ''
             if sec == 'DATOS':
-                print(f'## {nombre}')
+                print(f'## {nombre}{nota}')
                 for l in contenido:
                     print('- ' + l)
                 continue
             orden = 'por importancia' if es_ranking(url) else 'por fecha'
-            print(f'## {nombre} ({len(contenido)} items, {orden})')
+            print(f'## {nombre} ({len(contenido)} items, {orden}){nota}')
             for i in contenido:
                 n += 1
                 links.append(str(n) + ' ' + i['l'])
