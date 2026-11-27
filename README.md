@@ -4,6 +4,7 @@ Resumen diario de noticias (mundo, Argentina y Mar del Plata) que arma una tarea
 
 - Web: https://eliseomonti.github.io/noticias-diarias/
 - Feed RSS (Kindle con KOReader): https://eliseomonti.github.io/noticias-diarias/feed.xml
+- Manual completo (contratos entre piezas, tareas paso a paso, problemas conocidos, decisiones): [MANUAL.md](MANUAL.md)
 
 ## Cómo está armado
 
