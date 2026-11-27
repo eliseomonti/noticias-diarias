@@ -29,7 +29,7 @@ AR | Provincia de Buenos Aires (GN) | https://news.google.com/rss/search?q=(Kici
 AR | Chequeado (verificación de datos) | https://chequeado.com/feed/?post_type=nota | verificador de datos: si chequeó una afirmación que incluís, sumá su conclusión, atribuida
 AR | Noticias Argentinas (agencia, GN) | https://news.google.com/rss/search?q=site:noticiasargentinas.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419 | agencia de noticias: base para los hechos duros
 AR | Google News Argentina | https://news.google.com/rss?hl=es-419&gl=AR&ceid=AR:es-419 | portada de Google News ordenada por importancia: cubren(N) = medios distintos que publicaron la misma noticia, la mejor señal de amplitud
-AR | Google News Merval | https://news.google.com/rss/search?q=Merval+when:1d&hl=es-419&gl=AR&ceid=AR:es-419 | para el Merval si el dato de DATOS falla: último cierre, fecha y variación, atribuido al medio
+AR | Google News Merval | https://news.google.com/rss/search?q=Merval+when:1d&hl=es-419&gl=AR&ceid=AR:es-419 | para el Merval si el dato de DATOS falla: último cierre, fecha y variación, atribuido al medio (el índice se llama S&P Merval)
 
 MDP | 0223 | https://www.0223.com.ar/rss
 MDP | Qué Digital | https://quedigital.com.ar/feed/
@@ -54,7 +54,7 @@ MUNDO | AP (GN) | https://news.google.com/rss/search?q=site:apnews.com+when:1d&h
 MUNDO | EFE (agencia, GN) | https://news.google.com/rss/search?q=site:efe.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419 | agencia de noticias: base para los hechos duros
 MUNDO | Wall Street Journal World | https://feeds.content.dowjones.io/public/rss/RSSWorldNews
 MUNDO | Le Monde (en inglés) | https://www.lemonde.fr/en/rss/une.xml
-MUNDO | Times of Israel | https://www.timesofisrael.com/feed/
+MUNDO | Times of Israel (GN) | https://news.google.com/rss/search?q=site:timesofisrael.com+when:1d&hl=en-US&gl=US&ceid=US:en | su feed propio bloquea a la nube (403); no usar WebFetch
 MUNDO | South China Morning Post World | https://www.scmp.com/rss/91/feed
 MUNDO | South China Morning Post China | https://www.scmp.com/rss/4/feed
 MUNDO | Infobae América | https://www.infobae.com/arc/outboundfeeds/rss/category/america/
@@ -97,4 +97,4 @@ DATOS | Dólar | https://dolarapi.com/v1/dolares | informá el precio de VENTA d
 DATOS | Riesgo país | https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo | valor y fecha
 DATOS | BCRA (oficial) | https://api.bcra.gob.ar/estadisticas/v4.0/monetarias | datos oficiales: reservas internacionales, inflación mensual e interanual del INDEC con su mes e inflación esperada (REM); el dólar mayorista y la BADLAR, solo como contexto
 DATOS | Clima Mar del Plata | https://api.open-meteo.com/v1/forecast?latitude=-38.0&longitude=-57.55&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,weather_code&timezone=America/Argentina/Buenos_Aires&forecast_days=1 | pronóstico de hoy con el estado del cielo; si hay una alerta, atribuila al SMN o al medio que la informe
-DATOS | Merval | https://query1.finance.yahoo.com/v8/finance/chart/%5EMERV?range=5d&interval=1d | último cierre, su fecha y variación; si falla, buscalo en Google News Merval y atribuilo; si no aparece, "sin dato"
+DATOS | Merval | https://query1.finance.yahoo.com/v8/finance/chart/%5EMERV?range=5d&interval=1d | el índice se llama S&P Merval: último cierre, su fecha y variación; si falla, buscalo en Google News Merval y atribuilo; si no aparece, "sin dato"
