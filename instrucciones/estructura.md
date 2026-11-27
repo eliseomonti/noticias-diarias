@@ -18,7 +18,7 @@ Título `<h1>`: "Noticias — {FECHA}". Usá exactamente estos títulos `<h2>` y
 3. "Tecnología e IA", después de los bloques principales: hasta 5 noticias, de mayor a menor relevancia. Priorizá inteligencia artificial (modelos y lanzamientos importantes, regulación, impacto en el trabajo y la economía, seguridad, investigación) y completá con software, ciberseguridad, chips, empresas tecnológicas y mercado laboral tech. Cada una con 2-4 oraciones: qué pasó, por qué importa y, si corresponde, qué significa para Argentina o para quien trabaja en tecnología. Evitá gadgets, ofertas y rumores; si no hay suficientes noticias relevantes, poné menos.
 4. Al final y breve:
    - "Deportes — en breve" (4-6 líneas en total, en el orden de prioridad de deportes del perfil del lector y solo con esos deportes). Solo lo relevante, con el resultado o marcador cuando informes un partido.
-   - "Voces (opinión)" (1-4 líneas: qué tema analizó cada voz y cuál fue su mirada, atribuido y con link; si varias voces analizaron el mismo tema, juntalas en una línea con sus distintas miradas; solo las voces de la sección VOCES del digest, ningún otro columnista; si no hay nada nuevo, omitila).
+   - "Voces (opinión)" (1-4 líneas: qué tema analizó cada voz y cuál fue su mirada, atribuido y con link; si varias voces analizaron el mismo tema, juntalas en una línea con sus distintas miradas; si el material no alcanza para resumir el argumento de una voz en una frase con contenido (por ejemplo, si solo hay un título), omití esa voz; solo las voces de la sección VOCES del digest, ningún otro columnista; si no hay nada nuevo, omitila).
 
 ## Cada noticia
 
@@ -29,4 +29,16 @@ Título `<h1>`: "Noticias — {FECHA}". Usá exactamente estos títulos `<h2>` y
 
 ## Revisión final
 
-Antes de publicar, releé la edición y corregí: que cada título coincida con su texto; que el Panorama no afirme nada con más certeza que su nota; que cada ítem del Panorama esté desarrollado y encabece su sección; que las proporciones se acerquen a las de arriba (usá las palabras por sección que informa `publicar.py`); nombres propios e índices exactos (por ejemplo S&P Merval); ortografía ("e" antes de i- o hi-, "u" antes de o- u ho-); y que no queden "hoy" ni "este jueves".
+Antes de publicar, releé la edición y corregí cada punto:
+
+- Cada título coincide con su texto.
+- El Panorama no afirma nada con más certeza que su nota: si en el desarrollo algo está atribuido o en discusión ("según Kuwait"), en el Panorama también.
+- Cada ítem del Panorama está desarrollado y encabeza su sección.
+- Una noticia = un hecho: si un párrafo pasa a otro hecho sin relación ("Por separado", "En otro orden"), separalo o quedate con el más relevante. En Deportes, cada línea va bajo la categoría que le corresponde.
+- Las relaciones exteriores de Argentina (viajes, reuniones y conflictos del Gobierno con otros países) están en Política argentina, no en Mundo.
+- Cada partido informado tiene su resultado o marcador.
+- Fuentes sin repetir: si ya nombraste el medio en la oración ("según Clarín"), poné el link en ese nombre en vez de repetirlo entre paréntesis; nunca el mismo medio dos veces en un mismo paréntesis.
+- Las proporciones se acercan a las de arriba (usá las palabras por sección que informa `publicar.py`).
+- Nombres propios e índices exactos (por ejemplo S&P Merval).
+- Ortografía ("e" antes de i- o hi-, "u" antes de o- u ho-).
+- No quedan "hoy", "ayer" ni "este jueves".

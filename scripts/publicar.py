@@ -23,6 +23,7 @@ from email.utils import format_datetime
 BASE = 'https://eliseomonti.github.io/noticias-diarias/'
 DIAS = 60       # antigüedad máxima de una edición
 EN_FEED = 14    # ediciones en feed.xml
+MIN_PALABRAS = 1200  # por debajo, aviso de edición anormalmente corta
 ART = dt.timezone(dt.timedelta(hours=-3))
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PIE = f'<p><a href="{BASE}">← Todas las ediciones</a></p>'
@@ -94,6 +95,9 @@ def revisar(cuerpo):
     for i in range(1, len(partes), 2):
         secciones.append((texto(partes[i]), partes[i] + (partes[i + 1] if i + 1 < len(partes) else '')))
     conteo = [(n, len(texto(s).split())) for n, s in secciones]
+    total = sum(n for _, n in conteo)
+    if total < MIN_PALABRAS:
+        avisos.append(f'edición anormalmente corta: {total} palabras (menos de {MIN_PALABRAS}); revisá si faltan secciones o noticias')
     return errores, avisos, conteo
 
 

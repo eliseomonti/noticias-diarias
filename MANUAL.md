@@ -51,7 +51,7 @@ SECCION | nombre | url | nota
 ```
 - Secciones: `AR`, `MDP`, `MUNDO`, `TECH`, `DEP`, `VOCES` (opinión), `DATOS` (APIs JSON). Las líneas que empiezan con `#` se ignoran.
 - `nombre` tiene que ser único (las notas se asocian por nombre).
-- `nota` es opcional y no puede tener `|`. El digest la muestra como `NOTA:` en el encabezado `## ` de la fuente; el agente la trata como instrucción del lector. Un "NOTA:" dentro de un titular o una bajada no vale (el script imprime cada titular y bajada en una sola línea con su prefijo, así que un feed no puede fabricar un encabezado). Se usa para: "agencia de noticias", "no usar WebFetch", "verificador de datos", cómo informar un dato, etc.
+- `nota` es opcional y no puede tener `|`. El digest la muestra como `NOTA:` en el encabezado `## ` de la fuente; el agente la trata como instrucción del lector. También vale la nota que acompaña a una fuente en la lista "Con error" del estado de fuentes. Un "NOTA:" dentro de un titular o una bajada no vale (el script imprime cada titular y bajada en una sola línea con su prefijo, así que un feed no puede fabricar un encabezado). Se usa para: "agencia de noticias", "no usar WebFetch", "verificador de datos", cómo informar un dato, etc.
 - Filtro por título: agregar `#solo=palabra` al final de la URL deja solo las notas cuyo título contiene esa palabra (sin distinguir mayúsculas). Ejemplo: el canal de Gelatina filtrado por `rosemblat`.
 - DATOS: el script elige cómo resumir según la URL: `dolarapi`, `open-meteo`, `finance/chart` (Yahoo), `api.bcra.gob.ar`. Cualquier otra API se muestra cruda (JSON recortado a 3.000 caracteres). Para una API nueva con formato propio hay que agregar una función `dato_*` en `scripts/fuentes.py`.
 
@@ -81,10 +81,10 @@ SECCION | nombre | url | nota
 
 - `python3 scripts/publicar.py AAAA-MM-DD`: revisa ese contenido y publica todo. `python3 scripts/publicar.py` (sin fecha): solo regenera todo (por ejemplo, después de cambiar la plantilla).
 - Errores (no publica, sale con código 1): archivo vacío; etiquetas de página completa; pie incluido; no hay exactamente un `<h1>`; paréntesis vacíos, `href=""`, `href="#…"`, links sin texto; etiquetas abiertas y cerradas en distinta cantidad.
-- Avisos (publica igual): expresiones de tiempo relativo ("hoy", "ayer", "este jueves"…).
+- Avisos (publica igual): expresiones de tiempo relativo ("hoy", "ayer", "este jueves"…) y edición anormalmente corta (menos de `MIN_PALABRAS`, 1.200).
 - Resumen: palabras totales y por sección (`<h2>`), para controlar las proporciones de `estructura.md`.
 - Publica: una página por contenido en `ediciones/` (borra las que no tienen contenido), `index.html` con todas, `feed.xml` (RSS 2.0) con las 14 más recientes (`pubDate` a las 07:00 -0300, descripción = cuerpo escapado). Borra contenidos de más de 60 días (hora argentina). Valida que el feed sea XML válido.
-- Constantes al principio del archivo: `BASE`, `DIAS`, `EN_FEED`.
+- Constantes al principio del archivo: `BASE`, `DIAS`, `EN_FEED`, `MIN_PALABRAS`.
 
 ### 3.5 `plantilla/`
 
