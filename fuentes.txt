@@ -1,6 +1,7 @@
 # Fuentes del resumen diario. Formato: SECCION | nombre | url
 # Secciones: AR, MDP, MUNDO, TECH, DEP, VOCES (periodistas/creadores), DATOS (APIs JSON)
 # Para sumar o sacar una fuente, editá este archivo (las líneas con # se ignoran).
+# Para quedarte solo con las notas de un feed cuyo título contenga una palabra, agregá #solo=palabra al final de la URL.
 # Preferí feeds de sección (Política, Economía): los generales de los medios grandes cubren pocas horas
 # porque mezclan todas sus ediciones. Los generales que quedan sirven para detectar temas transversales.
 # Las búsquedas de Google News (GN) detectan noticias; las agencias y fuentes primarias confirman hechos.
@@ -85,6 +86,10 @@ DEP | Shams Charania (GN) | https://news.google.com/rss/search?q=%22Shams+Charan
 VOCES | Carlos Pagni (GN) | https://news.google.com/rss/search?q=%22Carlos+Pagni%22+when:3d&hl=es-419&gl=AR&ceid=AR:es-419
 VOCES | Marcelo Longobardi (YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCi0YGKwQGE-r1GtEAgX1vwQ
 VOCES | Solo Fonseca (YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCTqb7oZzCYpzOhPenq6AOyQ
+VOCES | Pedro Rosemblat (Gelatina, YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCWSfXECGo1qK_H7SXRaUSMg#solo=rosemblat
+VOCES | Pedro Rosemblat (GN) | https://news.google.com/rss/search?q=%22Pedro+Rosemblat%22+-Lali+-boda+-casamiento+when:3d&hl=es-419&gl=AR&ceid=AR:es-419
+VOCES | Tomás Rebord (YouTube) | https://www.youtube.com/feeds/videos.xml?channel_id=UCEKbBDfanOeB3LqZio_nLdQ
+VOCES | Tomás Rebord (GN) | https://news.google.com/rss/search?q=%22Tom%C3%A1s+Rebord%22+-rating+-Lali+when:3d&hl=es-419&gl=AR&ceid=AR:es-419
 
 DATOS | Dólar | https://dolarapi.com/v1/dolares
 DATOS | Riesgo país | https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo
