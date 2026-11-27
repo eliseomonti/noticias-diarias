@@ -17,8 +17,13 @@ AR | Perfil Política | https://www.perfil.com/feed/politica
 AR | Perfil Economía | https://www.perfil.com/feed/economia
 AR | elDiarioAR | https://www.eldiarioar.com/rss/
 AR | Ámbito | https://www.ambito.com/rss/pages/home.xml
-AR | El Cronista | https://www.cronista.com/arc/outboundfeeds/rss/
+AR | El Cronista Economía y Política | https://www.cronista.com/arc/outboundfeeds/rss/category/economia-politica/?outputType=xml
+AR | El Cronista Finanzas y Mercados | https://www.cronista.com/arc/outboundfeeds/rss/category/finanzas-mercados/?outputType=xml
+AR | Bloomberg Línea Argentina | https://www.bloomberglinea.com/arc/outboundfeeds/rss/latinoamerica/argentina.xml
 AR | TN | https://tn.com.ar/rss.xml
+AR | Letra P (política, GN) | https://news.google.com/rss/search?q=site:letrap.com.ar+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+AR | Provincia de Buenos Aires (GN) | https://news.google.com/rss/search?q=(Kicillof+OR+%22Legislatura+bonaerense%22+OR+%22gobierno+bonaerense%22+OR+%22Senado+bonaerense%22)+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+AR | Chequeado (verificación de datos) | https://chequeado.com/feed/?post_type=nota
 AR | Noticias Argentinas (agencia, GN) | https://news.google.com/rss/search?q=site:noticiasargentinas.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 AR | Google News Argentina | https://news.google.com/rss?hl=es-419&gl=AR&ceid=AR:es-419
 AR | Google News Merval | https://news.google.com/rss/search?q=Merval+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
@@ -26,6 +31,9 @@ AR | Google News Merval | https://news.google.com/rss/search?q=Merval+when:1d&hl
 MDP | 0223 | https://www.0223.com.ar/rss
 MDP | Qué Digital | https://quedigital.com.ar/feed/
 MDP | ahoraMDP | https://ahoramardelplata.com.ar/feed
+MDP | El Marplatense | https://elmarplatenseapiv3.eleco.com.ar/feed-notes
+MDP | InfoBrisas | https://www.infobrisas.com/rss/noticias
+MDP | LU9 Mar del Plata | https://lu9mardelplataapiv3.eleco.com.ar/feed-notes
 MDP | La Capital (GN) | https://news.google.com/rss/search?q=site:lacapitalmdp.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
 MDP | Mi8 (GN) | https://news.google.com/rss/search?q=site:mi8.com.ar+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
 MDP | Municipio de General Pueyrredon (GN) | https://news.google.com/rss/search?q=site:mardelplata.gob.ar+when:2d&hl=es-419&gl=AR&ceid=AR:es-419
@@ -40,6 +48,10 @@ MUNDO | The Guardian World | https://www.theguardian.com/world/rss
 MUNDO | France 24 | https://www.france24.com/es/rss
 MUNDO | Reuters (GN) | https://news.google.com/rss/search?q=site:reuters.com+when:1d&hl=en-US&gl=US&ceid=US:en
 MUNDO | AP (GN) | https://news.google.com/rss/search?q=site:apnews.com+when:1d&hl=en-US&gl=US&ceid=US:en
+MUNDO | EFE (agencia, GN) | https://news.google.com/rss/search?q=site:efe.com+when:1d&hl=es-419&gl=AR&ceid=AR:es-419
+MUNDO | Wall Street Journal World | https://feeds.content.dowjones.io/public/rss/RSSWorldNews
+MUNDO | Le Monde (en inglés) | https://www.lemonde.fr/en/rss/une.xml
+MUNDO | Times of Israel | https://www.timesofisrael.com/feed/
 MUNDO | South China Morning Post World | https://www.scmp.com/rss/91/feed
 MUNDO | South China Morning Post China | https://www.scmp.com/rss/4/feed
 MUNDO | Infobae América | https://www.infobae.com/arc/outboundfeeds/rss/category/america/
@@ -76,5 +88,6 @@ VOCES | Solo Fonseca (YouTube) | https://www.youtube.com/feeds/videos.xml?channe
 
 DATOS | Dólar | https://dolarapi.com/v1/dolares
 DATOS | Riesgo país | https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo
+DATOS | BCRA (oficial) | https://api.bcra.gob.ar/estadisticas/v4.0/monetarias
 DATOS | Clima Mar del Plata | https://api.open-meteo.com/v1/forecast?latitude=-38.0&longitude=-57.55&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,weather_code&timezone=America/Argentina/Buenos_Aires&forecast_days=1
 DATOS | Merval | https://query1.finance.yahoo.com/v8/finance/chart/%5EMERV?range=5d&interval=1d
